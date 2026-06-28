@@ -62,7 +62,7 @@ export default function Pelukan() {
           transition={{ delay: 1.5 }}
           style={{ color: "#ff6b9d", fontSize: 13, fontStyle: "italic", marginBottom: 30 }}
         >
-          — Dari pacarmu yang nyebelin tapi sayang banget sama kamu
+          — From Rafli
         </motion.p>
 
         <motion.div
