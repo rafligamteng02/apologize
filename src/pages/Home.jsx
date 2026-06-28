@@ -12,7 +12,7 @@ import {
 const activities = [
   { id: "nonton", label: "Nonton Film", icon: <FilmIcon size={32} /> },
   { id: "makan", label: "Makan Bareng", icon: <FoodIcon size={32} /> },
-  { id: "ngopi", label: "Nugas+Ngopi", icon: <CoffeeIcon size={32} /> },
+  { id: "ngopi", label: "Ngopi", icon: <CoffeeIcon size={32} /> },
   { id: "jalan", label: "Muter2 Cari Angin", icon: <WalkIcon size={32} /> },
   { id: "chill", label: "Chill di Kost", icon: <HomeIconSvg size={32} color="#ff6b9d" /> },
   { id: "lainnya", label: "Lainnya", icon: <SparkleIcon size={32} /> },
