@@ -3,7 +3,7 @@ import { motion } from "framer-motion"
 import { useNavigate } from "react-router-dom"
 import supabase from "../lib/supabase"
 import { NAMA_AYANG, NAMA_PACAR } from "../data/konten"
-import { HeartIcon } from "../components/Icons"
+import { HeartIcon, SparkleIcon } from "../components/Icons"
 
 const ADMIN_PASSWORD = "rafli123"
 
@@ -13,12 +13,15 @@ export default function Admin() {
   const [submissions, setSubmissions] = useState([])
   const [loading, setLoading] = useState(false)
   const [expanded, setExpanded] = useState(null)
+  const [hangoutRequests, setHangoutRequests] = useState([])
+  const [loadingHangout, setLoadingHangout] = useState(false)
   const navigate = useNavigate()
 
   const handleLogin = () => {
     if (password === ADMIN_PASSWORD) {
       setLoggedIn(true)
       fetchSubmissions()
+      fetchHangoutRequests()
     } else {
       alert("Password salah!")
     }
@@ -36,6 +39,33 @@ export default function Admin() {
       setSubmissions(data || [])
     }
     setLoading(false)
+  }
+
+  const fetchHangoutRequests = async () => {
+    setLoadingHangout(true)
+    const { data, error } = await supabase
+      .from("hangout_requests")
+      .select("*")
+      .order("created_at", { ascending: false })
+    if (error) {
+      console.warn("Gagal ambil hangout requests:", error.message)
+    } else {
+      setHangoutRequests(data || [])
+    }
+    setLoadingHangout(false)
+  }
+
+  const handleDeleteHangout = async (id) => {
+    if (!confirm("Yakin mau hapus ajakan hangout ini?")) return
+    const { error } = await supabase
+      .from("hangout_requests")
+      .delete()
+      .eq("id", id)
+    if (error) {
+      alert("Gagal hapus: " + error.message)
+    } else {
+      setHangoutRequests(prev => prev.filter(s => s.id !== id))
+    }
   }
 
   const handleDelete = async (id) => {
@@ -121,14 +151,14 @@ export default function Admin() {
               Admin Panel
             </h2>
             <p style={{ color: "rgba(255,255,255,0.4)", fontSize: 12, margin: "4px 0 0" }}>
-              {submissions.length} submission dari {NAMA_AYANG}
+              {submissions.length} submission &middot; {hangoutRequests.length} ajakan hangout
             </p>
           </div>
           <div style={{ display: "flex", gap: 8 }}>
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              onClick={fetchSubmissions}
+              onClick={() => { fetchSubmissions(); fetchHangoutRequests() }}
               style={{
                 background: "rgba(255,255,255,0.08)", border: "1px solid rgba(255,255,255,0.12)",
                 color: "#fff", padding: "8px 14px", borderRadius: 8, fontSize: 12,
@@ -282,6 +312,108 @@ export default function Admin() {
               </motion.div>
             )
           })
+        )}
+
+        {/* --- Hangout Requests --- */}
+        <div style={{ height: 1, background: "rgba(255,255,255,0.08)", margin: "32px 0 24px" }} />
+
+        <div style={{
+          display: "flex", alignItems: "center", justifyContent: "space-between",
+          marginBottom: 16
+        }}>
+          <div>
+            <h3 style={{
+              color: "#ff6b9d", fontSize: 16, margin: 0,
+              display: "flex", alignItems: "center", gap: 8
+            }}>
+              <SparkleIcon size={16} /> Ajakan Hangout
+            </h3>
+            <p style={{ color: "rgba(255,255,255,0.4)", fontSize: 12, margin: "4px 0 0" }}>
+              {hangoutRequests.length} ajakan dari {NAMA_AYANG}
+            </p>
+          </div>
+        </div>
+
+        {loadingHangout ? (
+          <div style={{ textAlign: "center", padding: 30 }}>
+            <p style={{ color: "rgba(255,255,255,0.3)", fontSize: 13 }}>Loading...</p>
+          </div>
+        ) : hangoutRequests.length === 0 ? (
+          <div style={{
+            textAlign: "center", padding: 30,
+            background: "rgba(255,255,255,0.03)", borderRadius: 12,
+            border: "1px solid rgba(255,255,255,0.06)"
+          }}>
+            <p style={{ color: "rgba(255,255,255,0.25)", fontSize: 13 }}>
+              Belum ada ajakan hangout.
+            </p>
+          </div>
+        ) : (
+          hangoutRequests.map((r, i) => (
+            <motion.div
+              key={r.id}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: i * 0.05 }}
+              style={{
+                background: "rgba(255,255,255,0.04)",
+                border: "1px solid rgba(255,255,255,0.08)",
+                borderRadius: 12, marginBottom: 10, padding: "14px 18px"
+              }}
+            >
+              <div style={{
+                display: "flex", alignItems: "flex-start", justifyContent: "space-between"
+              }}>
+                <div style={{ flex: 1 }}>
+                  <div style={{
+                    display: "flex", alignItems: "center", gap: 8, marginBottom: 6
+                  }}>
+                    <span style={{
+                      width: 24, height: 24, borderRadius: 6,
+                      background: "rgba(255,107,157,0.15)",
+                      color: "#ff6b9d", fontSize: 10, fontWeight: 700,
+                      display: "flex", alignItems: "center", justifyContent: "center"
+                    }}>
+                      {i + 1}
+                    </span>
+                    <span style={{ color: "#fff", fontSize: 14, fontWeight: 600 }}>
+                      {r.activity}
+                    </span>
+                  </div>
+                  <div style={{ marginLeft: 32 }}>
+                    <div style={{ display: "flex", gap: 8, marginBottom: 4 }}>
+                      <span style={{ color: "rgba(255,255,255,0.3)", fontSize: 12, minWidth: 50 }}>Waktu</span>
+                      <span style={{ color: "rgba(255,255,255,0.8)", fontSize: 13 }}>{r.custom_time}</span>
+                    </div>
+                    {r.message && (
+                      <div style={{ display: "flex", gap: 8, marginBottom: 4 }}>
+                        <span style={{ color: "rgba(255,255,255,0.3)", fontSize: 12, minWidth: 50 }}>Pesan</span>
+                        <span style={{ color: "rgba(255,255,255,0.7)", fontSize: 13 }}>{r.message}</span>
+                      </div>
+                    )}
+                    <p style={{ color: "rgba(255,255,255,0.25)", fontSize: 11, margin: "6px 0 0" }}>
+                      {new Date(r.created_at).toLocaleDateString("id-ID", {
+                        weekday: "short", year: "numeric", month: "short", day: "numeric",
+                        hour: "2-digit", minute: "2-digit"
+                      })}
+                    </p>
+                  </div>
+                </div>
+                <motion.button
+                  whileTap={{ scale: 0.9 }}
+                  onClick={() => handleDeleteHangout(r.id)}
+                  style={{
+                    background: "rgba(255,50,50,0.15)", border: "none",
+                    color: "#ff5050", width: 28, height: 28, borderRadius: 6,
+                    cursor: "pointer", fontSize: 14, display: "flex",
+                    alignItems: "center", justifyContent: "center", flexShrink: 0
+                  }}
+                >
+                  ×
+                </motion.button>
+              </div>
+            </motion.div>
+          ))
         )}
       </motion.div>
     </div>

@@ -265,7 +265,7 @@ function CakeIcon({ size = 40, color = pink }) {
   )
 }
 
-function FilmIcon({ size = 40, color = pink }) {
+export function FilmIcon({ size = 40, color = pink }) {
   return (
     <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" style={s}>
       <rect x="2" y="2" width="20" height="20" rx="2" fill={color} fillOpacity="0.1" />
@@ -279,7 +279,7 @@ function FilmIcon({ size = 40, color = pink }) {
   )
 }
 
-function FoodIcon({ size = 40, color = pink }) {
+export function FoodIcon({ size = 40, color = pink }) {
   return (
     <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" style={s}>
       <path d="M18 8h1a4 4 0 0 1 0 8h-1" fill={color} fillOpacity="0.1" />
@@ -338,6 +338,45 @@ export function CopyIcon({ size = 20, color = white }) {
     <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={s}>
       <rect x="9" y="9" width="13" height="13" rx="2" ry="2" fill={color} fillOpacity="0.1" />
       <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+    </svg>
+  )
+}
+
+export function CoffeeIcon({ size = 24, color = pink }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={s}>
+      <path d="M18 8h1a4 4 0 0 1 0 8h-1" fill={color} fillOpacity="0.1" />
+      <path d="M2 8h16v7a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z" />
+      <line x1="6" y1="1" x2="6" y2="4" />
+      <line x1="10" y1="1" x2="10" y2="4" />
+      <line x1="14" y1="1" x2="14" y2="4" />
+      <path d="M6 19v2" strokeWidth="1.2" />
+      <path d="M14 19v2" strokeWidth="1.2" />
+    </svg>
+  )
+}
+
+export function WalkIcon({ size = 24, color = pink }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={s}>
+      <path d="M13 4a2 2 0 1 0-4 0 2 2 0 0 0 4 0z" fill={color} fillOpacity="0.1" />
+      <path d="M4 20l3-5 2-2 4 3 2-4" />
+      <path d="M10 13l2-3 3-1 3 3 2 2" />
+      <path d="M15 7l2 4" />
+    </svg>
+  )
+}
+
+export function CalendarIcon({ size = 24, color = pink }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={s}>
+      <rect x="3" y="4" width="18" height="18" rx="2" ry="2" fill={color} fillOpacity="0.1" />
+      <line x1="16" y1="2" x2="16" y2="6" />
+      <line x1="8" y1="2" x2="8" y2="6" />
+      <line x1="3" y1="10" x2="21" y2="10" />
+      <circle cx="12" cy="14" r="1" fill={color} />
+      <circle cx="16" cy="14" r="1" fill={color} />
+      <circle cx="8" cy="14" r="1" fill={color} />
     </svg>
   )
 }

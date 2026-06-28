@@ -2,10 +2,10 @@ import { Link, useLocation } from "react-router-dom"
 import { motion } from "framer-motion"
 import { useState } from "react"
 import { NAMA_AYANG } from "../data/konten"
-import { HomeIcon, MailHeartIcon, CameraIcon, ClockIcon, HeartSparkleIcon, HeartIcon, EnvelopeIcon, HugIcon, CopyIcon } from "./Icons"
+import { MailHeartIcon, CameraIcon, ClockIcon, HeartSparkleIcon, HeartIcon, EnvelopeIcon, HugIcon, CopyIcon } from "./Icons"
 
 const pages = [
-  { path: "/", label: "Home", icon: <HomeIcon size={18} /> },
+  { path: "/", label: "Hangout", icon: <HeartSparkleIcon size={18} color="#fff" /> },
   { path: "/surat-maaf", label: "Surat", icon: <MailHeartIcon size={18} color="#fff" /> },
   { path: "/gallery", label: "Gallery", icon: <CameraIcon size={18} color="#fff" /> },
   { path: "/love-counter", label: "Timer", icon: <ClockIcon size={18} color="#fff" /> },
