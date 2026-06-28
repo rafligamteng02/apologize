@@ -44,26 +44,19 @@ export default function LoveLetter() {
   const handleDownloadPDF = () => {
     const el = pdfRef.current
     if (!el) return
-    el.style.display = "block"
-    el.style.position = "fixed"
-    el.style.left = "-9999px"
-    el.style.top = "0"
-    el.style.zIndex = -1
-
     html2pdf()
       .set({
-        margin: [8, 8, 8, 8],
+        margin: [10, 10, 10, 10],
         filename: `Persyaratan_Memaafkan_${NAMA_PACAR}.pdf`,
-        image: { type: "jpeg", quality: 0.98 },
+        image: { type: "jpeg", quality: 0.95 },
         html2canvas: {
-          scale: 2, useCORS: true, letterRendering: true,
-          backgroundColor: "#1a0011"
+          scale: 3, useCORS: true, letterRendering: true,
+          backgroundColor: "#1a0011", width: 595
         },
         jsPDF: { unit: "mm", format: "a4", orientation: "portrait" }
       })
       .from(el)
       .save()
-      .then(() => { el.style.display = "none" })
   }
 
   const handleCopy = () => {
@@ -222,7 +215,7 @@ export default function LoveLetter() {
               🥹💕
             </motion.div>
             <h2 style={{ color: "#ff6b9d", fontSize: 20, marginBottom: 10 }}>
-              Makasih Udah Ngasih Aku Kesempatan, {NAMA_AYANG}!
+              Makasih Udah baca semuanya, give me your answer please {NAMA_AYANG}!
             </h2>
             <p style={{ color: "rgba(255,255,255,0.8)", fontSize: 14, lineHeight: 1.7, marginBottom: 4 }}>
               {checkedCount} dari {totalCount} persyaratan udah dicatat.
@@ -268,59 +261,154 @@ export default function LoveLetter() {
               ))}
             </motion.div>
 
-            {/* Hidden PDF element */}
+            {/* PDF element — always in DOM, off-screen */}
             <div ref={pdfRef} style={{
-              display: "none", width: "595px", padding: "40px",
-              background: "linear-gradient(135deg, #1a0011, #2d0015)",
-              fontFamily: "'Poppins', sans-serif", color: "#fff"
+              position: "fixed", left: "-9999px", top: 0, zIndex: -1,
+              width: "595px", minHeight: "842px",
+              background: "linear-gradient(180deg, #1a0011 0%, #2d0015 50%, #1a0011 100%)",
+              fontFamily: "'Poppins', 'Segoe UI', sans-serif", color: "#fff",
+              display: "flex", flexDirection: "column"
             }}>
-              <div style={{ textAlign: "center", marginBottom: 30 }}>
-                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#ff6b9d" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" fill="#ff6b9d" fillOpacity="0.15" />
-                </svg>
-                <h1 style={{ color: "#ff6b9d", fontSize: 22, margin: "15px 0 5px", fontWeight: 700 }}>
+              {/* Top decorative line */}
+              <div style={{
+                height: 6, background: "linear-gradient(90deg, transparent, #ff6b9d, #ff8fab, transparent)"
+              }} />
+
+              {/* Header */}
+              <div style={{ textAlign: "center", padding: "50px 50px 30px" }}>
+                <div style={{ marginBottom: 15 }}>
+                  <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="#ff6b9d" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" fill="#ff6b9d" fillOpacity="0.2" />
+                  </svg>
+                </div>
+                <h1 style={{
+                  color: "#ff6b9d", fontSize: 26, fontWeight: 700,
+                  margin: "0 0 6px", letterSpacing: 0.5
+                }}>
                   Persyaratan Memaafkan {NAMA_PACAR}
                 </h1>
-                <p style={{ color: "rgba(255,255,255,0.5)", fontSize: 11 }}>
-                  {NAMA_AYANG} • {formatDate(new Date())}
+                <p style={{ color: "rgba(255,255,255,0.35)", fontSize: 10, fontWeight: 500, textTransform: "uppercase", letterSpacing: 3, margin: "0 0 15px" }}>
+                  ✦ Surat Cinta & Komitmen ✦
                 </p>
+                <div style={{
+                  display: "inline-block",
+                  borderTop: "1px solid rgba(255,107,157,0.25)",
+                  borderBottom: "1px solid rgba(255,107,157,0.25)",
+                  padding: "8px 20px"
+                }}>
+                  <span style={{ color: "#ff8fab", fontSize: 11, letterSpacing: 1 }}>
+                    {NAMA_AYANG.toUpperCase()} — {formatDate(new Date()).toUpperCase()}
+                  </span>
+                </div>
               </div>
-              <div style={{ borderTop: "1px solid rgba(255,107,157,0.3)", paddingTop: 20, marginBottom: 20 }}>
-                {reqs.map(r => (
-                  <div key={r.id} style={{
-                    display: "flex", alignItems: "center", gap: 10,
-                    padding: "10px 14px", marginBottom: 4, borderRadius: 8,
-                    background: r.checked ? "rgba(255,107,157,0.08)" : "transparent"
+
+              {/* Body */}
+              <div style={{ padding: "0 50px 30px" }}>
+                {/* Checked section */}
+                <div style={{
+                  background: "rgba(255,107,157,0.06)",
+                  borderRadius: 12,
+                  border: "1px solid rgba(255,107,157,0.15)",
+                  padding: "20px 24px", marginBottom: 16
+                }}>
+                  <p style={{
+                    color: "#ff8fab", fontSize: 11, fontWeight: 700,
+                    textTransform: "uppercase", letterSpacing: 1.5, margin: "0 0 14px"
                   }}>
-                    <div style={{
-                      width: 18, height: 18, borderRadius: 4, flexShrink: 0,
-                      border: `2px solid ${r.checked ? "#ff6b9d" : "rgba(255,255,255,0.2)"}`,
-                      background: r.checked ? "#ff6b9d" : "transparent",
-                      display: "flex", alignItems: "center", justifyContent: "center"
+                    ✅ Dicentang — {reqs.filter(r => r.checked).length}
+                  </p>
+                  {reqs.filter(r => r.checked).map(r => (
+                    <div key={r.id} style={{
+                      display: "flex", alignItems: "center", gap: 10,
+                      padding: "7px 0", borderBottom: "1px solid rgba(255,107,157,0.07)"
                     }}>
-                      {r.checked && (
+                      <div style={{
+                        width: 18, height: 18, borderRadius: 5, flexShrink: 0,
+                        background: "#ff6b9d",
+                        display: "flex", alignItems: "center", justifyContent: "center"
+                      }}>
                         <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
                           <path d="M20 6L9 17l-5-5" />
                         </svg>
-                      )}
+                      </div>
+                      <span style={{ color: "#fff", fontSize: 12, lineHeight: 1.5 }}>
+                        {r.text}
+                      </span>
                     </div>
-                    <span style={{
-                      color: r.checked ? "#fff" : "rgba(255,255,255,0.4)",
-                      fontSize: 12, textDecoration: r.checked ? "none" : "line-through"
+                  ))}
+                  {reqs.filter(r => r.checked).length === 0 && (
+                    <p style={{ color: "rgba(255,255,255,0.3)", fontSize: 12, fontStyle: "italic" }}>
+                      Tidak ada yang dicentang
+                    </p>
+                  )}
+                </div>
+
+                {/* Unchecked section */}
+                {reqs.filter(r => !r.checked).length > 0 && (
+                  <div style={{
+                    background: "rgba(255,255,255,0.02)",
+                    borderRadius: 12,
+                    border: "1px solid rgba(255,255,255,0.06)",
+                    padding: "20px 24px", marginBottom: 16
+                  }}>
+                    <p style={{
+                      color: "rgba(255,255,255,0.35)", fontSize: 11, fontWeight: 700,
+                      textTransform: "uppercase", letterSpacing: 1.5, margin: "0 0 14px"
                     }}>
-                      {r.text}
-                    </span>
+                      ☐ Belum — {reqs.filter(r => !r.checked).length}
+                    </p>
+                    {reqs.filter(r => !r.checked).map(r => (
+                      <div key={r.id} style={{
+                        display: "flex", alignItems: "center", gap: 10,
+                        padding: "7px 0", borderBottom: "1px solid rgba(255,255,255,0.04)"
+                      }}>
+                        <div style={{
+                          width: 18, height: 18, borderRadius: 5, flexShrink: 0,
+                          border: "2px solid rgba(255,255,255,0.15)"
+                        }} />
+                        <span style={{ color: "rgba(255,255,255,0.3)", fontSize: 12, lineHeight: 1.5, textDecoration: "line-through" }}>
+                          {r.text}
+                        </span>
+                      </div>
+                    ))}
                   </div>
-                ))}
+                )}
               </div>
-              <div style={{ borderTop: "1px solid rgba(255,107,157,0.3)", paddingTop: 20, textAlign: "center" }}>
-                <p style={{ color: "#ff6b9d", fontSize: 12, fontStyle: "italic", marginBottom: 4 }}>
-                  &ldquo;{checkedCount} persyaratan harus dijalanin dengan sepenuh hati.&rdquo;
+
+              {/* Footer */}
+              <div style={{
+                marginTop: "auto", padding: "30px 50px 40px",
+                textAlign: "center",
+                borderTop: "1px solid rgba(255,107,157,0.12)"
+              }}>
+                <div style={{
+                  display: "flex", justifyContent: "center", gap: 8,
+                  marginBottom: 16
+                }}>
+                  {[0,1,2,3,4].map(i => (
+                    <svg key={i} width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#ff6b9d" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ opacity: 0.6 - i * 0.1 }}>
+                      <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" fill="#ff6b9d" fillOpacity="0.15" />
+                    </svg>
+                  ))}
+                </div>
+                <p style={{
+                  color: "#ff8fab", fontSize: 12, fontWeight: 600,
+                  fontStyle: "italic", margin: "0 0 5px"
+                }}>
+                  &ldquo;{checkedCount} persyaratan ini akan dijalanin dengan sepenuh hati.&rdquo;
                 </p>
-                <p style={{ color: "rgba(255,255,255,0.4)", fontSize: 10, marginTop: 20 }}>
-                  {NAMA_PACAR} 🤍 {NAMA_AYANG} • {TANGGAL_JADIAN.getFullYear()}-sekarang
+                <p style={{ color: "rgba(255,255,255,0.25)", fontSize: 9, margin: "0 0 3px" }}>
+                  {NAMA_PACAR} 🤍 {NAMA_AYANG}
+                </p>
+                <p style={{ color: "rgba(255,255,255,0.15)", fontSize: 8 }}>
+                  {TANGGAL_JADIAN.getFullYear()} &mdash; selamanya
                 </p>
               </div>
+
+              {/* Bottom decorative line */}
+              <div style={{
+                height: 6, background: "linear-gradient(90deg, transparent, #ff6b9d, #ff8fab, transparent)"
+              }} />
             </div>
 
             {/* Action Buttons */}
