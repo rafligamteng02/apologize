@@ -21,6 +21,7 @@ export default function LoveLetter() {
   const [reqs, setReqs] = useState(defaultReqs)
   const [custom, setCustom] = useState("")
   const [submitted, setSubmitted] = useState(false)
+  const [sentToDb, setSentToDb] = useState(false)
   const navigate = useNavigate()
   const pdfRef = useRef(null)
 
@@ -49,7 +50,11 @@ export default function LoveLetter() {
       checked_count: checkedItems.length,
       total_count: reqs.length
     }).then(({ error }) => {
-      if (error) console.warn("Supabase insert error:", error.message)
+      if (error) {
+        console.warn("Supabase insert error:", error.message)
+      } else {
+        setSentToDb(true)
+      }
     })
   }
 
@@ -235,6 +240,29 @@ export default function LoveLetter() {
             <p style={{ color: "rgba(255,255,255,0.5)", fontSize: 13, fontStyle: "italic", marginBottom: 20 }}>
               Aku janji bakal ngejalanin semuanya dengan sepenuh hati.
             </p>
+
+            {/* Toast — pesan terkirim ke admin */}
+            {sentToDb && (
+              <motion.div
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                style={{
+                  background: "rgba(74,222,128,0.12)", border: "1px solid rgba(74,222,128,0.25)",
+                  borderRadius: 12, padding: "12px 16px", marginBottom: 20,
+                  display: "flex", alignItems: "center", gap: 10
+                }}
+              >
+                <span style={{ fontSize: 18 }}>🎉</span>
+                <div style={{ textAlign: "left" }}>
+                  <p style={{ color: "#4ade80", fontSize: 13, fontWeight: 600, margin: 0 }}>
+                    Pesanmu udah masuk ke panel admin!
+                  </p>
+                  <p style={{ color: "rgba(255,255,255,0.5)", fontSize: 12, margin: "2px 0 0" }}>
+                    {NAMA_PACAR} bakal ngecek persyaratan kamu dari dashboard admin 🥰
+                  </p>
+                </div>
+              </motion.div>
+            )}
 
             {/* Summary Card */}
             <motion.div
