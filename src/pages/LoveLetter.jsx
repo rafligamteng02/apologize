@@ -2,6 +2,7 @@ import { useState, useRef } from "react"
 import { motion } from "framer-motion"
 import { useNavigate } from "react-router-dom"
 import html2pdf from "html2pdf.js"
+import supabase from "../lib/supabase"
 import { NAMA_AYANG, NAMA_PACAR, TANGGAL_JADIAN } from "../data/konten"
 import { HeartIcon, EnvelopeIcon, DownloadIcon, CopyIcon, HugIcon } from "../components/Icons"
 
@@ -39,6 +40,17 @@ export default function LoveLetter() {
     const data = { date: new Date().toISOString(), items: reqs }
     localStorage.setItem("erryll-persyaratan", JSON.stringify(data))
     setSubmitted(true)
+
+    const checkedItems = reqs.filter(r => r.checked).map(r => r.text)
+    const uncheckedItems = reqs.filter(r => !r.checked).map(r => r.text)
+    supabase.from("submissions").insert({
+      checked_items: checkedItems,
+      unchecked_items: uncheckedItems,
+      checked_count: checkedItems.length,
+      total_count: reqs.length
+    }).then(({ error }) => {
+      if (error) console.warn("Supabase insert error:", error.message)
+    })
   }
 
   const handleDownloadPDF = () => {

@@ -9,6 +9,7 @@ import LoveCounter from "./pages/LoveCounter"
 import AlasanSayang from "./pages/AlasanSayang"
 import LoveLetter from "./pages/LoveLetter"
 import CekPersyaratan from "./pages/CekPersyaratan"
+import Admin from "./pages/Admin"
 import Pelukan from "./pages/Pelukan"
 
 function AnimatedRoutes() {
@@ -31,6 +32,7 @@ function AnimatedRoutes() {
           <Route path="/alasan-sayang" element={<AlasanSayang />} />
           <Route path="/love-letter" element={<LoveLetter />} />
           <Route path="/cek-persyaratan" element={<CekPersyaratan />} />
+          <Route path="/admin" element={<Admin />} />
           <Route path="/pelukan" element={<Pelukan />} />
         </Routes>
       </motion.div>
