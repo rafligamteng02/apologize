@@ -9,13 +9,13 @@ const albums = [
     label: "Makan Makan",
     color: "#ff8fab",
     photos: [
-      { src: "/images/makan1.jpeg", caption: "Makan enak bareng kamu" },
-      { src: "/images/makan2.jpeg", caption: "Lagi lahap-lahapnya" },
+      { src: "/images/makan1.jpeg", caption: "Sarapan bareng kamu" },
+      { src: "/images/makan2.jpeg", caption: "Lagi bm seblak kamunya ini" },
       { src: "/images/makan3.jpeg", caption: "Makan sambil ngobrol" },
-      { src: "/images/makan4.jpeg", caption: "Kulineran lagi" },
-      { src: "/images/makan5.jpeg", caption: "Mukbang date" },
-      { src: "/images/makan6.jpeg", caption: "Ngopi dulu" },
-      { src: "/images/makan7.jpeg", caption: "Makan lagi, makan lagi 😂" },
+      { src: "/images/makan4.jpeg", caption: "Seblak Date" },
+      { src: "/images/makan5.jpeg", caption: "another seblak date" },
+      { src: "/images/makan6.jpeg", caption: "Another another seblak date" },
+      { src: "/images/makan7.jpeg", caption: "seblak semua isi galeriku 😂" },
     ]
   },
   {
@@ -23,7 +23,7 @@ const albums = [
     color: "#f08aad",
     photos: [
       { src: "/images/liburan1.jpeg", caption: "Jogja ketemu mamitha" },
-      { src: "/images/jogja1.jpeg", caption: "Jalan-jalan ke Jogja" },
+      { src: "/images/jogja1.jpeg", caption: "Jalan-jalan ke Jogja pertama kali" },
     ]
   },
   {

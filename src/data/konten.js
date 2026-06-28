@@ -7,7 +7,7 @@ sikapku mungkin sering bikin kamu kecewa.
 Dan buat semuanya... aku minta maaf.
 
 Aku minta maaf kalo aku terlalu keras kepala.
-Aku minta maaf kalo aku tidak peka sama perasaan kamu.
+Aku minta maaf kalo aku kadang ga peka sama perasaan kamu.
 Aku minta maaf kalo kadang aku lupa
 Aku mau berubah buat kamu.
 
