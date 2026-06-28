@@ -92,7 +92,7 @@ export default function Gallery() {
       >
         <div style={{ marginBottom: 8 }}><CameraIcon size={36} /></div>
         <h2 style={{ color: "#ff6b9d", fontSize: 24, marginBottom: 10 }}>
-          Kenangan Kita
+          Our Memories
         </h2>
         <p style={{ color: "rgba(255,255,255,0.6)", fontSize: 13 }}>
           Klik album buat liat foto-foto kenangan

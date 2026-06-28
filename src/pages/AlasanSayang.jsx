@@ -27,7 +27,7 @@ export default function AlasanSayang() {
           {reasons.length} Alasan Kenapa Aku Sayang Buangett Sama {NAMA_AYANG}
         </h2>
         <p style={{ color: "rgba(255,255,255,0.6)", fontSize: 13 }}>
-          Klik kartunya buat lihat alasan lengkapnya <SparkleIcon size={14} />
+          Klik kartunya <SparkleIcon size={14} />
         </p>
       </motion.div>
 
